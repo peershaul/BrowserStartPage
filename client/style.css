@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap");
+*, *::before, *::after {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  direction: ltr;
+  text-align: center;
+}
+
+body {
+  background-color: #222222;
+  color: #fff0f3;
+  font-family: "JetBrains Mono", monospace;
+}
+
+h1 {
+  margin-x: 20px;
+  font-size: 35pt;
+  padding: 2ex;
+  border-bottom: 1px solid rgba(255, 240, 243, 0.25);
+}
+
+#duck-searchbox {
+  position: relative;
+  padding: 2ex;
+  margin-y: 5ex;
+}
+#duck-searchbox img {
+  position: absolute;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  left: 5%;
+  top: 50%;
+}
+#duck-searchbox input, #duck-searchbox button {
+  font-size: 18pt;
+  font-family: "JetBrains Mono", monospace;
+  padding: 10px 15px;
+}
+#duck-searchbox input {
+  width: 75%;
+  background-color: rgba(255, 240, 243, 0.25);
+  color: #222222;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.25s;
+}
+#duck-searchbox input:focus {
+  background-color: #fff0f3;
+}
+#duck-searchbox button {
+  display: inline-block;
+  margin-left: 40px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 77, 109, 0.5);
+  color: #fff0f3;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+#duck-searchbox button:hover {
+  background-color: #ff4d6d;
+}
+
+#links-main-container {
+  padding: 40px;
+  margin: 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+#links-main-container .block {
+  width: 350px;
+  min-width: 300px;
+  background-color: rgba(255, 240, 243, 0.4);
+  margin: 5px;
+}
+#links-main-container .block a {
+  color: #800f2f;
+}
+#links-main-container .block > a {
+  padding: 25px 20px;
+  font-size: 18pt;
+  margin: 1ex;
+  display: block;
+}
+#links-main-container .block > a:hover {
+  color: #c9184a;
+}
+#links-main-container .block > div {
+  background-color: rgba(34, 34, 34, 0.35);
+  padding: 20px 10px;
+}
+#links-main-container .block > div a {
+  display: block;
+  padding: 5px;
+}
+#links-main-container .block > div a:hover {
+  color: #ff4d6d;
+}
+
+/*# sourceMappingURL=style.css.map */

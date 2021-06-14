@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap')
+*, *::before, *::after
+    box-sizing: border-box
+    max-width: 100%
+
+// color scheme
+$color0: #222222
+$color1: #590d22
+$color2: #800f2f 
+$color3: #a4133c
+$color4: #c9184a
+$color5: #ff4d6d
+$color6: #ff758f
+$color7: #ffb3c1
+$color8: #fff0f3
+
+$def-font: 'JetBrains Mono', monospace 
+
+html 
+    margin: 0
+    padding: 0
+    direction: ltr 
+    text-align: center
+
+body 
+    @extend html
+    background-color: $color0
+    color: $color8
+    font-family: $def-font 
+
+
+h1
+    margin-x: 20px 
+    font-size: 35pt
+    padding: 2ex
+    border-bottom: 1px solid transparentize($color8, 0.75)
+
+#duck-searchbox
+    position: relative
+    padding: 2ex
+    margin-y: 5ex
+
+    img 
+        position: absolute
+        height: 50px
+        transform: translate(-50%, -50%)
+        left: 5%
+        top: 50%
+    
+    input, button 
+        font:
+            size: 18pt
+            family: $def-font
+        padding: 10px 15px
+    
+    input 
+        width: 75%
+        background-color: transparentize($color8, 0.75)
+        color: $color0
+        outline: none
+        border: none
+        border-radius: 10px
+        transition: all 0.25s 
+        &:focus
+            background-color: $color8
+
+    button 
+        display: inline-block
+        margin-left: 40px
+        border-radius: 10px
+        border: none 
+        outline: none
+        background-color: transparentize($color5, 0.5)
+        color: $color8
+        cursor: pointer
+        transition: all 0.25s
+        &:hover 
+            background-color: $color5
+
+
+#links-main-container
+    padding: 40px
+    margin: 20px
+    display: flex
+    justify-content: space-around
+    flex-wrap: wrap
+    .block
+        width: 350px
+        min-width: 300px
+        background-color: transparentize($color8, 0.6) 
+        margin: 5px
+        a 
+            color: $color2
+        & > a
+            padding: 25px 20px
+            font-size: 18pt
+            margin: 1ex
+            display: block
+            &:hover 
+                color: $color4
+        & > div 
+            background-color: transparentize($color0, 0.65)
+            padding: 20px 10px
+            a 
+                display: block
+                padding: 5px
+                &:hover 
+                    color: $color5
+                
