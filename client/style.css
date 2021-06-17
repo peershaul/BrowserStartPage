@@ -50,7 +50,7 @@ h1 {
   border-radius: 10px;
   transition: all 0.25s;
 }
-#duck-searchbox input:focus {
+#duck-searchbox input:focus, #duck-searchbox input.focus {
   background-color: #fff0f3;
 }
 #duck-searchbox button {
@@ -90,8 +90,8 @@ h1 {
   margin: 1ex;
   display: block;
 }
-#links-main-container .block > a:hover {
-  color: #c9184a;
+#links-main-container .block > a:hover, #links-main-container .block > a.focus {
+  color: #ff4d6d;
 }
 #links-main-container .block > div {
   background-color: rgba(34, 34, 34, 0.35);
@@ -101,7 +101,7 @@ h1 {
   display: block;
   padding: 5px;
 }
-#links-main-container .block > div a:hover {
+#links-main-container .block > div a:hover, #links-main-container .block > div a.focus {
   color: #ff4d6d;
 }
 

@@ -61,7 +61,7 @@ h1
         border: none
         border-radius: 10px
         transition: all 0.25s 
-        &:focus
+        &:focus, &.focus
             background-color: $color8
 
     button 
@@ -96,14 +96,14 @@ h1
             font-size: 18pt
             margin: 1ex
             display: block
-            &:hover 
-                color: $color4
+            &:hover, &.focus 
+                color: $color5
         & > div 
             background-color: transparentize($color0, 0.65)
             padding: 20px 10px
             a 
                 display: block
                 padding: 5px
-                &:hover 
+                &:hover, &.focus 
                     color: $color5
                 
