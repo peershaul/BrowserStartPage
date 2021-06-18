@@ -26,15 +26,13 @@ class Selectable {
         }
     }
 
-    focus = (focused, primaries) => {
+    focus = (primaries) => {
+        const focused = find_focused(primaries)
         if (this !== focused)
             Selectable.unfocus(primaries)
-        focused = this
         this.elem.classList.add('focus')
         if (this.elem.nodeName === 'INPUT')
             this.elem.focus()
-
-        return focused
     }
 }
 
@@ -52,6 +50,10 @@ class PrimarySelectable extends Selectable {
 
 class SecondarySelectable extends Selectable {
 
+    constructor(elem, index, parent) {
+        super(elem, index)
+        this.parent = parent
+    }
 }
 
 /**  
@@ -99,7 +101,7 @@ function genHirarchy(raw_list) {
 
         else
             primaries[primaries.length - 1].addSecondary(
-                new SecondarySelectable(raw_list[i][0], raw_list[i][1])
+                new SecondarySelectable(raw_list[i][0], raw_list[i][1], primaries[primaries.length - 1])
             )
     }
 
@@ -108,14 +110,135 @@ function genHirarchy(raw_list) {
 
 }
 
+function find_focused(primaries) {
+    let focused = null
+    for (let i = 0; i < primaries.length; i++) {
+        const prime = primaries[i]
+        let found = false
+        if (prime.elem.classList.contains('focus')) {
+            focused = prime
+            found = true
+        } else if (prime.secondaries.length > 0)
+            for (let j = 0; j < prime.secondaries.length; j++)
+                if (prime.secondaries[j].elem.classList.contains('focus')) {
+                    focused = prime.secondaries[j]
+                    found = true
+                    break
+                }
+
+        if (found) break
+    }
+    return focused
+}
+
+function find_from_primaries(prime, primaries) {
+    for (let i = 0; i < primaries.length; i++)
+        if (prime == primaries[i])
+            return i
+
+    return NaN
+}
+
+function find_from_primary(secondary, prime) {
+    for (let i = 0; i < prime.secondaries.length; i++)
+        if (secondary == prime.secondaries[i])
+            return i
+
+    return NaN
+}
+
+function moveRight(primaries) {
+    const focused = find_focused(primaries)
+    let current = focused
+    if (!Number.isInteger(focused.index)) current = focused.parent
+
+    let index = find_from_primaries(current, primaries)
+    if (index == primaries.length - 1) primaries[0].focus(primaries)
+    else primaries[index + 1].focus(primaries)
+}
+
+function moveLeft(primaries) {
+    const focused = find_focused(primaries)
+    let current = focused
+    if (!Number.isInteger(focused.index)) current = focused.parent
+
+    let index = find_from_primaries(current, primaries)
+    if (index == 0) primaries[primaries.length - 1].focus(primaries)
+    else primaries[index - 1].focus(primaries)
+}
+
+function moveUp(primaries) {
+    const focused = find_focused(primaries)
+    const is_secondary = !Number.isInteger(focused.index)
+
+    if (is_secondary) {
+        const index = find_from_primary(focused, focused.parent)
+        if (index == 0) focused.parent.focus(primaries)
+        else focused.parent.secondaries[index - 1].focus(primaries)
+    } else {
+        const index = find_from_primaries(focused, primaries)
+        if (index == 0) {
+            if (primaries[primaries.length - 1].secondaries.length > 0)
+                primaries[primaries.length - 1].secondaries[primaries[primaries.length - 1].secondaries.length - 1].focus(primaries)
+            else primaries[primaries.length - 1].focus(primaries)
+        } else if (primaries[index - 1].secondaries.length > 0)
+            primaries[index - 1].secondaries[primaries[index - 1].secondaries.length - 1].focus(primaries)
+        else primaries[index - 1].focus(primaries)
+
+    }
+}
+
+function moveDown(primaries) {
+    const focused = find_focused(primaries)
+    const is_secondary = !Number.isInteger(focused.index)
+
+    if (is_secondary) {
+        const index = find_from_primary(focused, focused.parent)
+        if (index == focused.parent.secondaries.length - 1) {
+            const per_index = find_from_primaries(focused.parent, primaries)
+            if (per_index == primaries.length - 1) primaries[0].focus(primaries)
+            else primaries[per_index + 1].focus(primaries)
+        } else focused.parent.secondaries[index + 1].focus(primaries)
+    } else {
+        const index = find_from_primaries(focused, primaries)
+        if (focused.secondaries.length > 0) focused.secondaries[0].focus(primaries)
+        else if (index == primaries.length - 1) primaries[0].focus(primaries)
+        else primaries[index + 1].focus(primaries)
+    }
+}
+
 window.onload = function() {
     const primaries = genHirarchy(getTIndex())
-    let focused = primaries[0]
-    let index = 0
-    setInterval(() => {
-        index++
-        if (index == primaries.length) index = 0
-        focused = primaries[index].focus(focused, primaries)
-        console.log(focused.elem)
-    }, 2000)
+    primaries[0].focus(primaries)
+
+    const keys = {
+        right_arrow: 39,
+        left_arrow: 37,
+        up_arrow: 38,
+        down_arrow: 40,
+        tab: 9
+    }
+
+    const keyDown = e => {
+        const evt = window.event ? event : e
+
+        if (evt.altKey) {
+            if (evt.keyCode == keys.right_arrow) {
+                e.preventDefault()
+                moveRight(primaries)
+            } else if (evt.keyCode == keys.left_arrow) {
+                e.preventDefault()
+                moveLeft(primaries)
+            } else if (evt.keyCode == keys.up_arrow) {
+                e.preventDefault()
+                moveUp(primaries)
+            } else if (evt.keyCode == keys.down_arrow) {
+                e.preventDefault()
+                moveDown(primaries)
+            }
+        }
+    }
+
+
+    document.onkeydown = keyDown
 }
