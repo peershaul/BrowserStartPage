@@ -207,22 +207,42 @@ function moveDown(primaries) {
     }
 }
 
+function enterEvent(primaries, new_tab) {
+    const focused = find_focused(primaries)
+    if (focused.elem.nodeName == 'A')
+        enterLink(focused, new_tab)
+    else if (focused.elem == document.querySelector('#duck-searchbox input'))
+        enterDuck(focused, new_tab)
+}
+
+function enterLink(focused, new_tab) {
+    window.open(focused.elem.getAttribute('href'), new_tab ? '_blank' : '_self')
+}
+
+function enterDuck(focused, new_tab) {
+    const txt = focused.elem.value
+    window.open('https://duckduckgo.com/?t=ffab&q=' + txt, new_tab ? '_blank' : '_self')
+}
+
 window.onload = function() {
     const primaries = genHirarchy(getTIndex())
     primaries[0].focus(primaries)
+
+    primaries[0].elem.onclick = () => primaries[0].focus(primaries)
 
     const keys = {
         right_arrow: 39,
         left_arrow: 37,
         up_arrow: 38,
         down_arrow: 40,
+        enter: 13,
         tab: 9
     }
 
     const keyDown = e => {
         const evt = window.event ? event : e
 
-        if (evt.altKey) {
+        if (evt.shiftKey) {
             if (evt.keyCode == keys.right_arrow) {
                 e.preventDefault()
                 moveRight(primaries)
@@ -236,6 +256,12 @@ window.onload = function() {
                 e.preventDefault()
                 moveDown(primaries)
             }
+
+        }
+
+        if (evt.keyCode == keys.enter) {
+            e.preventDefault()
+            enterEvent(primaries, evt.shiftKey)
         }
     }
 
