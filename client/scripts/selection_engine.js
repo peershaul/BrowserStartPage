@@ -224,7 +224,7 @@ function enterDuck(focused, new_tab) {
     window.open('https://duckduckgo.com/?t=ffab&q=' + txt, new_tab ? '_blank' : '_self')
 }
 
-window.onload = function() {
+function start_selection_engine() {
     const primaries = genHirarchy(getTIndex())
     primaries[0].focus(primaries)
 

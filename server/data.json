@@ -1,0 +1,67 @@
+{
+    "links": [
+
+        {
+            "name": "Youtube",
+            "url": "https://youtube.com",
+            "sublinks": [{
+                    "name": "DistroTube",
+                    "url": "https://www.youtube.com/channel/UCVls1GmFKf6WlTraIb_IaJg"
+                },
+                {
+                    "name": "Kalle Hallden",
+                    "url": "https://www.youtube.com/channel/UCWr0mx597DnSGLFk1WfvSkQ"
+                }
+            ]
+        },
+
+        {
+            "name": "Whatsapp",
+            "url": "https://web.whatsapp.com",
+            "sublinks": []
+        },
+
+        {
+            "name": "Reddit",
+            "url": "https://reddit.com",
+            "sublinks": [{
+                    "name": "r/linux",
+                    "url": "https://reddit.com/r/linux"
+                },
+                {
+                    "name": "r/unixporn",
+                    "url": "https://reddit.com/r/unixporn"
+                }
+            ]
+        },
+
+        {
+            "name": "Arch Linux",
+            "url": "https://archlinux.org",
+            "sublinks": [{
+                    "name": "Installation guide",
+                    "url": "https://wiki.archlinux.org/title/Installation_guide"
+                },
+                {
+                    "name": "Download",
+                    "url": "https://archlinux.org/download/"
+                }
+            ]
+        },
+
+        {
+            "name": "Github",
+            "url": "https://github.com",
+            "sublinks": [{
+                "name": "Personal account",
+                "url": "https://github.com/peershaul"
+            }]
+        },
+
+        {
+            "name": "Odysee",
+            "url": "https://odysee.com",
+            "sublinks": []
+        }
+    ]
+}
