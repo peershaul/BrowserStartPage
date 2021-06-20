@@ -3,7 +3,7 @@ function start() {
 }
 
 window.onload = () => {
-    fetch('http://localhost:2500/links', {
+    fetch('/links', {
             mode: 'cors',
             cache: 'default',
             credentials: 'same-origin'
