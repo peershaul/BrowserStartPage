@@ -227,6 +227,11 @@ function start_selection_engine() {
 			e.preventDefault();
 			enterEvent(primaries, evt.shiftKey);
 		}
+
+		document.getElementById('duck-search-button').onclick = () => {
+			const focused = find_focused(primaries);
+			if ((focused.elem = document.querySelector('#duck-searchbox input'))) enterDuck(focused, false);
+		};
 	};
 
 	document.onkeydown = keyDown;
